@@ -1,0 +1,63 @@
+version: '2'
+services:
+  db:
+    image: percona:latest
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - "./db/init:/docker-entrypoint-initdb.d"
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: magento
+      MYSQL_DATABASE: magento
+      MYSQL_USER: magento
+      MYSQL_PASSWORD: magento
+    ports:
+      - "3307:3306"
+
+  mailcatcher:
+    image: yappabe/mailcatcher
+    ports:
+        - "1025:1025" 
+        - "1080:1080"
+    restart: unless-stopped
+
+  fpm:
+    depends_on:
+      - mailcatcher
+    build: ./fpm
+    restart: unless-stopped
+    expose:
+      - "9009"
+    ports:
+      - "9000:9000"
+      - "35729:35729"
+    volumes:
+      - ./www:/var/www/html
+      - "./conf/customized.ini:/usr/local/etc/php/conf.d/php.ini"
+  nginx:
+    depends_on:
+      - db
+      - fpm
+    image: nginx:latest
+    volumes:
+      - ./www:/var/www/html
+      - "./conf/hosts:/etc/nginx/conf.d"
+    links:
+      - db
+      - fpm
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    environment:
+     - PMA_ARBITRARY=1
+    restart: unless-stopped
+    ports:
+     - 8080:80
+    volumes:
+     - /sessions
