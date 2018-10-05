@@ -23,6 +23,9 @@ RUN apt-get update && apt-get install -y \
 # Ssmpt
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ssmtp
 
+# mysql-client
+RUN apt-get update && apt-get install -y mysql-client && rm -rf /var/lib/apt
+
 # Install xdebug
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
