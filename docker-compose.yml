@@ -1,10 +1,10 @@
 version: '2'
 services:
   db:
-    image: percona:latest
+    image: mariadb:latest
     volumes:
       - ./db/data:/var/lib/mysql
-      - "./db/init:/docker-entrypoint-initdb.d"
+      - ./db/init:/docker-entrypoint-initdb.d
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: magento
@@ -24,24 +24,23 @@ services:
   fpm:
     depends_on:
       - mailcatcher
-    build: ./fpm
+    build: fpm/
     restart: unless-stopped
-    expose:
-      - "9009"
     ports:
-      - "9000:9000"
       - "35729:35729"
     volumes:
-      - ./www:/var/www/html
-      - "./conf/customized.ini:/usr/local/etc/php/conf.d/php.ini"
+      - ./public:/var/www/html
+      - ./fpm/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./fpm/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+
   nginx:
     depends_on:
       - db
       - fpm
     image: nginx:latest
     volumes:
-      - ./www:/var/www/html
-      - "./conf/hosts:/etc/nginx/conf.d"
+      - ./public:/var/www/html
+      - ./conf/hosts:/etc/nginx/conf.d
     links:
       - db
       - fpm

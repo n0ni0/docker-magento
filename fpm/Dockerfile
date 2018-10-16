@@ -6,11 +6,11 @@ RUN apt-get update && apt-get install -y \
 	cron \
 	wget \
 	libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        libpng-dev \
-        libxml2-dev \
-        libcurl4-openssl-dev \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libpng-dev \
+    libxml2-dev \
+    libcurl4-openssl-dev \
 	libxslt-dev \
 	libicu-dev \
 	nano \
@@ -27,17 +27,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ssmtp
 RUN apt-get update && apt-get install -y mysql-client && rm -rf /var/lib/apt
 
 # Install xdebug
-RUN pecl install xdebug
-RUN docker-php-ext-enable xdebug
-RUN sed -i '1 a xdebug.remote_autostart=true' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN sed -i '1 a xdebug.remote_mode=req' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN sed -i '1 a xdebug.remote_handler=dbgp' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN sed -i '1 a xdebug.remote_connect_back=1' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN sed -i '1 a xdebug.remote_port=9009' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN sed -i '1 a xdebug.remote_host=127.0.0.1' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN sed -i '1 a xdebug.remote_connect_back=1' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN sed -i '1 a xdebug.' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN sed -i '1 a xdebug.remote_enable=1' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN pecl install xdebug-2.6.1 \
+ && docker-php-ext-enable xdebug
+COPY xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+RUN chmod 777 /usr/local/etc/php/conf.d/xdebug.ini
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

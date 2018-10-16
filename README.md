@@ -10,7 +10,7 @@ Most Magento Docker image are monolytic or at most using an external MySQL serve
 Features
 
 * Latest Nginx
-* Latest Percona (MySQL compatible)
+* Latest MariaDB (MySQL compatible)
 * PHP-FPM 7.1.* with the following extensions and programs:
 * Opcache
 * XDebug
