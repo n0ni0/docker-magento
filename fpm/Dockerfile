@@ -1,24 +1,26 @@
 FROM php:7.1-fpm
 RUN apt-get update && apt-get install -y \
-	sudo \
-	git \
-	bzip2 \
-	cron \
-	wget \
-	libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libmcrypt-dev \
-    libpng-dev \
-    libxml2-dev \
-    libcurl4-openssl-dev \
-	libxslt-dev \
-	libicu-dev \
-	nano \
-	vim \
-	gnupg \
-    && docker-php-ext-install -j$(nproc) iconv mcrypt curl dom hash pdo pdo_mysql simplexml soap xsl intl zip opcache bcmath \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd
+sudo \
+acl\
+procps \
+git \
+bzip2 \
+cron \
+wget \
+libfreetype6-dev \
+libjpeg62-turbo-dev \
+libmcrypt-dev \
+libpng-dev \
+libxml2-dev \
+libcurl4-openssl-dev \
+libxslt-dev \
+libicu-dev \
+nano \
+vim \
+gnupg \
+  && docker-php-ext-install -j$(nproc) iconv mcrypt curl dom hash pdo pdo_mysql simplexml soap xsl intl zip opcache bcmath \
+  && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+  && docker-php-ext-install -j$(nproc) gd
 
 # Ssmpt
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ssmtp
