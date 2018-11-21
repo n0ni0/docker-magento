@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
 	cron \
 	wget \
   acl \
+  procps \
 	libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
