@@ -48,3 +48,8 @@ RUN npm install --global gulp
 RUN wget https://files.magerun.net/n98-magerun2.phar \
 && chmod +x ./n98-magerun2.phar \
 && mv ./n98-magerun2.phar /usr/local/bin/
+
+# Pestle
+RUN curl -LO http://pestle.pulsestorm.net/pestle.phar \
+&& chmod +x ./pestle.phar \
+&& mv ./pestle.phar /usr/local/bin/

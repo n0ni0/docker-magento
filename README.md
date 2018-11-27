@@ -42,6 +42,7 @@ Includes the following:
 * MailCatcher
 * gnupg
 * n98-magerun2
+* pestle
 
 Services:
 ----
