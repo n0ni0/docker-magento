@@ -43,6 +43,7 @@ Includes the following:
 * gnupg
 * n98-magerun2
 * pestle
+* bcmath
 
 Services:
 ----
