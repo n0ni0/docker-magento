@@ -42,7 +42,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN apt-get install -y nodejs
 
 #npm
-npm install -g npm@lastest
+RUN npm install -g npm@latest
 
 # Grunt
 RUN npm install -g grunt-cli
