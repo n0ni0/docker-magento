@@ -56,3 +56,8 @@ RUN wget https://files.magerun.net/n98-magerun2.phar \
 RUN curl -LO http://pestle.pulsestorm.net/pestle.phar \
 && chmod +x ./pestle.phar \
 && mv ./pestle.phar /usr/local/bin/
+
+# Mage2tv Cache Clean
+RUN composer global require --dev mage2tv/magento-cache-clean \
+&& export PATH="$PATH:$HOME/.composer/vendor/bin" \
+&& echo 'alias cache-clean="$HOME/.composer/vendor/bin/cache-clean.js"' >> ~/.bashrc
