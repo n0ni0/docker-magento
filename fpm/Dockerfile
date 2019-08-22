@@ -57,7 +57,21 @@ RUN curl -LO http://pestle.pulsestorm.net/pestle.phar \
 && chmod +x ./pestle.phar \
 && mv ./pestle.phar /usr/local/bin/
 
+# Oh My Zsh!
+RUN sudo apt-get install -y zsh \
+&& wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true \
+&& git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k \
+&& sudo apt-get -y install locales \
+&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen \
+&& rm /root/.zshrc \
+&& git clone https://gist.github.com/574e9255c0e8b2256efaf540ef6f1a31.git /root/zshconfig \
+&& mv /root/zshconfig/.zshrc /root/ \
+&& rm -rf /root/zshconfig/ \
+&& git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
+&& git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
 # Mage2tv Cache Clean
 RUN composer global require --dev mage2tv/magento-cache-clean \
 && export PATH="$PATH:$HOME/.composer/vendor/bin" \
-&& echo 'alias cache-clean="$HOME/.composer/vendor/bin/cache-clean.js"' >> ~/.bashrc
+&& echo '\nalias cache-clean="$HOME/.composer/vendor/bin/cache-clean.js"' >> ~/.zshrc
+

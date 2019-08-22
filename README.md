@@ -41,10 +41,11 @@ Includes the following:
 * PHPMyAdmin
 * MailCatcher
 * gnupg
-* n98-magerun2 -- https://github.com/netz98/n98-magerun2
-* pestle -- https://github.com/astorm/pestle
+* [n98-magerun2](https://github.com/netz98/n98-magerun2)
+* [pestle](https://github.com/astorm/pestle)
 * bcmath
-* Mage2tv/magento-cache-clean -- https://github.com/mage2tv/magento-cache-clean
+* [Mage2tv/magento-cache-clean](https://github.com/mage2tv/magento-cache-clean)
+* [Oh My Zsh!](https://github.com/robbyrussell/oh-my-zsh)
 
 Services:
 ----
