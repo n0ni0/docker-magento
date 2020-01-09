@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 RUN apt-get update && apt-get install -y \
 	sudo \
 	git \
@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y \
   procps \
 	libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libmcrypt-dev \
         libpng-dev \
         libxml2-dev \
         libcurl4-openssl-dev \
@@ -18,9 +17,14 @@ RUN apt-get update && apt-get install -y \
 	nano \
 	vim \
     gnupg \
-    && docker-php-ext-install -j$(nproc) iconv mcrypt curl dom hash pdo pdo_mysql mysqli simplexml soap xsl intl zip opcache bcmath \
+    && docker-php-ext-install -j$(nproc) iconv curl dom hash pdo pdo_mysql mysqli simplexml soap xsl intl zip opcache bcmath sockets \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
+
+#mcrypt
+RUN apt-get update && apt-get install -y libmcrypt-dev \
+    && pecl install mcrypt-1.0.2 \
+    && docker-php-ext-enable mcrypt
 
 # msmtp
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y msmtp
