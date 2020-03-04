@@ -39,7 +39,6 @@ Includes the following:
 * grunt-cli
 * composer
 * PHPMyAdmin
-* MailCatcher
 * gnupg
 * [n98-magerun2](https://github.com/netz98/n98-magerun2)
 * [pestle](https://github.com/astorm/pestle)
@@ -51,7 +50,6 @@ Services:
 ----
 * db: MySql server (listening on port 3306)
 * fpm: PHP-FPM listening on port 9000.
-* mailcatcher: (accessible on port 1080 with your web brower) 
 * phpmyadmin: (accessible on port 8080 with your web brower)
 * apache: listening on http (80) only
 
