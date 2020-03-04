@@ -15,17 +15,9 @@ services:
     ports:
       - "3306:3306"
 
-  mailcatcher:
-    image: yappabe/mailcatcher
-    ports:
-        - "1025:1025"
-        - "1080:1080"
-    restart: unless-stopped
-
   php:
-    depends_on:
-      - mailcatcher
-    build: fpm/
+    image: n0ni0/docker-magento_php_72
+    #build: fpm/
     links:
       - db:mysqldb
     volumes:
@@ -37,7 +29,8 @@ services:
       - "35729:35729"
 
   apache:
-    build: apache/
+    image: n0ni0/docker-magento_apache
+    #build: apache/
     links:
       - php:phpfpm
     volumes:
