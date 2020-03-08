@@ -16,11 +16,13 @@ init_dirs()
   resolve_dir
   export m2_DIR="${DIR}"
   export COMMANDS_DIR="${DIR}/commands"
+  export TASKS_DIR="${DIR}/tasks"
   export PROPERTIES_DIR="${DIR}/properties"
 }
 
 
 init_dirs
+source ${TASKS_DIR}/load_properties.sh
 
 COMMAND_NAME="$1.sh"
 if [ ! -f ${COMMANDS_DIR}/${COMMAND_NAME} ]; then
