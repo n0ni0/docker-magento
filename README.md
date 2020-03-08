@@ -1,38 +1,17 @@
-magento-apache
+docker-magento
 ===========
 
-This docker-compose create a lamp environment ready to develop with the feature to have all your proyects reusing the same containers.
+This docker-compose create a lamp environment to work with Magento and ready to develop with the feature to have all your proyects reusing the same containers.
 You don´t need to create new containers when start a new proyect and save space in your disk without repeated images with minimal changes.
 
 Includes the following:
 
 * Apache
 * Mysql 5.6
-* PHP-FPM 7.1.* with the following extensions and programs:
-* Opcache
-* XDebug
-* gd (with freetype and jpeg support)
-* iconv
-* mcrypt
-* curl
-* dom
-* hash
-* pdo
-* pdo_mysql
-* simplexml
-* soap
+* PHP-FPM with all the magento 1 and magento 2 required extensions
 * sudo
-* git
-* cron
-* wget
-* libfreetype6-dev
-* libjpeg62-turbo-dev
-* libmcrypt-dev
-* libpng-dev
-* libxml2-dev
-* libcurl4-openssl-dev
-* libxslt-dev
-* libicu-dev
+* curl
+* xdebug
 * nano
 * vim
 * nodejs
@@ -42,9 +21,28 @@ Includes the following:
 * gnupg
 * [n98-magerun2](https://github.com/netz98/n98-magerun2)
 * [pestle](https://github.com/astorm/pestle)
-* bcmath
 * [Mage2tv/magento-cache-clean](https://github.com/mage2tv/magento-cache-clean)
 * [Oh My Zsh!](https://github.com/robbyrussell/oh-my-zsh)
+
+Php Versions:
+----
+* 5.6
+* 7.0
+* 7.1
+* 7.2
+
+All php versions are ready to use and uploaded to docker-hub.
+To change the php version only need to modify the number in docker-compose.yml
+
+```
+php:
+    image: n0ni0/docker-magento_php_72
+```
+
+Adding further features
+----
+More PHP extensions can be added by customizing the dockerfile inside the FPM folder. Simply rebuild the FPM image after by running docker-compose up --build.
+If it fail, stop the fpm container, remove it, remove the image and execute again 'sudo docker-compose up -d'.
 
 Services:
 ----
@@ -90,7 +88,7 @@ docker ps
 ```
 Restart apache container:
 ```
-docker restart lamp_apache_1
+docker restart docker-magento_apache_1
 ```
 Enter in a bash of a container:
 ```
@@ -109,7 +107,12 @@ PHP Debugging
 ----
 By default the remote port is set to 9009 and the remote handler to dbgp. The connect_back option is enable, so ensure your IDE is allowing it.
 
-Adding further features
-----
-More PHP extensions can be added by customizing the dockerfile inside the FPM folder. Simply rebuild the FPM image after by running docker-compose up --build.
-If it fail, stop the fpm container, remove it, remove the image and execute again 'sudo docker-compose up -d'.
+To enable xdebug execute:
+```
+bin/mage2.sh xdebug enable
+```
+
+To disable xdebug execute:
+```
+bin/mage2.sh xdebug disable
+```
